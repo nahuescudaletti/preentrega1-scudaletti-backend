@@ -1,1 +1,1 @@
-[{"id":"c15a9411-546d-4d2d-9031-042b291b4623","products":[{"id":"b4e2d9be-b335-4784-af31-b5209a4d81bf","quantity":10}]}]
+[{"id":"c15a9411-546d-4d2d-9031-042b291b4623","products":[{"id":"b4e2d9be-b335-4784-af31-b5209a4d81bf","quantity":10}]},{"id":"b46e6e58-186a-4bd6-b935-f362ad5ccebe","products":[]}]
