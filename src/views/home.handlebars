@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+</head>
+<body>
+  <h1>Lista de productos</h1>
+  <ul>
+    {{#each products}}
+    <li>{{this.title}}</li>
+    <li>{{this.description}}</li>
+    <li>{{this.price}}</li>
+    <li>{{this.code}}</li>
+    <li>{{this.stock}}</li>
+    <li>{{this.category}}</li>
+    <!-- Agrega aquí los demás atributos del producto -->
+    {{/each}}
+  </ul>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>
