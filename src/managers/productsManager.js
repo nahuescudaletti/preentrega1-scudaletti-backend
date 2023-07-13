@@ -31,23 +31,26 @@ constructor(productsPath) {
     return this.products.find((product) => product.id === productId);
   }
 
-  addProduct(title, description, price, code, stock, category, thumbnails) {
-    const id = uuidv4();
+addProduct(title, description, price, code, stock, category, thumbnails) {
+  const id = uuidv4();
 
-    const product = {
-      id,
-      title,
-      description,
-      price,
-      code,
-      stock,
-      category,
-      thumbnails,
-      status: true,
-    };
-    this.products.push(product);
-    this.saveProducts();
-  }
+  const product = {
+    id,
+    title,
+    description,
+    price,
+    code,
+    stock,
+    category,
+    thumbnails,
+    status: true,
+  };
+
+  this.products.push(product);
+  this.saveProducts();
+
+  return product; // Agregamos esta línea para retornar el nuevo producto
+}
 
   updateProduct(productId, updatedFields) {
     const product = this.getProductById(productId);

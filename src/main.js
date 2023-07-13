@@ -5,8 +5,14 @@ import { Server } from 'socket.io';
 import productsRouter from './routes/products.router.js';
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
-import path from "path";
+import fs from 'fs';
 
+const productsFilePath = 'data/productsRealTime.json';
+
+// Verificar si el archivo existe
+if (!fs.existsSync(productsFilePath)) {
+  fs.writeFileSync(productsFilePath, '[]', 'utf8');
+}
 
 const app = express();
 const PORT = 8080;

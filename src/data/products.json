@@ -1,1 +1,11 @@
-[{"id":"b4e2d9be-b335-4784-af31-b5209a4d81bf","title":"pava","description":"pava electrica","price":99.99,"code":"PROD001","stock":10,"category":"Electrónicos","thumbnails":[],"status":true}]
+[
+{"id":"b4e2d9be-b335-4784-af31-b5209a4d81bf",
+"title":"pava",
+"description":"pava electrica",
+"price":99.99,
+"code":"PROD001",
+"stock":10,
+"category":"Electrónicos",
+"thumbnails":[],
+"status":true}
+]

@@ -6,29 +6,26 @@ socket.on('productList', (products) => {
   console.log(products);
 });
 
-socket.on('createProduct', (newProduct) => {
+socket.on('productCreated', (newProduct) => {
   // Agrega el nuevo producto a la vista en tiempo real
   // Puedes utilizar jQuery u otras librerías para manipular el DOM
   console.log(newProduct);
+  const productList = document.getElementById('productList');
+  const productItem = document.createElement('li');
+  productItem.innerText = newProduct.title;
+  productList.appendChild(productItem);
 });
 
-socket.on('deleteProduct', (productId) => {
-  // Elimina el producto de la vista en tiempo real
-  // Puedes utilizar jQuery u otras librerías para manipular el DOM
-  console.log(productId);
-});
-
-const productForm = document.getElementById("productForm");
-productForm.addEventListener("submit", (event) => {
+document.getElementById('productForm').addEventListener('submit', (event) => {
   event.preventDefault();
-
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
-  const price = document.getElementById("price").value;
-  const code = document.getElementById("code").value;
-  const stock = document.getElementById("stock").value;
-  const category = document.getElementById("category").value;
-
+  const form = event.target;
+  const title = form.elements['title'].value;
+  const description = form.elements['description'].value;
+  const price = form.elements['price'].value;
+  const code = form.elements['code'].value;
+  const stock = form.elements['stock'].value;
+  const category = form.elements['category'].value;
   const productData = { title, description, price, code, stock, category };
-  socket.emit("createProduct", productData);
+  socket.emit('createProduct', productData);
+  form.reset();
 });

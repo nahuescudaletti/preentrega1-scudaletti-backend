@@ -1,38 +1,37 @@
-import { Router } from "express";
-import { Server } from "socket.io";
-import ProductManager from "../managers/productsManager.js";
+import express from 'express';
+import { Server } from 'socket.io';
+import fs from 'fs';
 
-const router = Router();
+const router = express.Router();
 const io = new Server();
-const productsManager = new ProductManager("data/products.json");
+const productsFilePath = 'data/productsRealTime.json';
 
-router.get("/home", (req, res) => {
-  const products = productsManager.getAllProducts();
-  res.render("home", { products });
+router.get('/home', (req, res) => {
+  const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf8'));
+  res.render('home', { products });
 });
 
-router.get("/realtimeproducts", (req, res) => {
-  const products = productsManager.getAllProducts();
-  res.render("realTimeProducts", { products });
+router.get('/realtimeproducts', (req, res) => {
+  const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf8'));
+  res.render('realtimeproducts', { products });
 });
 
-router.use((req, res, next) => {
-  req.io = io;
-  req.productsManager = productsManager;
-  next();
-});
+io.on('connection', (socket) => {
+  console.log('Nuevo cliente conectado');
 
-io.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado");
-
-  socket.on("createProduct", (productData) => {
-    const { title, description, price, code, stock, category, thumbnails } = productData;
-    const newProduct = productsManager.addProduct(title, description, price, code, stock, category, thumbnails);
-    io.emit("productCreated", newProduct);
+  socket.on('createProduct', (productData) => {
+    const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf8'));
+    const newProduct = {
+      ...productData,
+      id: Math.floor(Math.random() * 1000), // Generar un ID aleatorio
+    };
+    products.push(newProduct);
+    fs.writeFileSync(productsFilePath, JSON.stringify(products), 'utf8');
+    io.emit('productCreated', newProduct);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Cliente desconectado");
+  socket.on('disconnect', () => {
+    console.log('Cliente desconectado');
   });
 });
 
